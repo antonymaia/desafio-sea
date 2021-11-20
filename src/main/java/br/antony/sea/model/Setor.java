@@ -7,17 +7,17 @@ import java.util.List;
 public class Setor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String nome;
 
-    @OneToMany(mappedBy = "setor")
+    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
     private List<Cargo> cargos;
 
     public Setor(){}
 
-    public Setor(Integer id, String nome) {
+    public Setor(int id, String nome) {
         this.id = id;
-        this.nome = nome.toUpperCase();
+        this.nome = nome!=null ? nome.toUpperCase() : null;
     }
 
     public Integer getId() {

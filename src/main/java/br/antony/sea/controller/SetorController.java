@@ -1,6 +1,7 @@
 package br.antony.sea.controller;
 
 
+import br.antony.sea.dto.NovoSetorDTO;
 import br.antony.sea.dto.SetorDTO;
 import br.antony.sea.mapper.SetorMapper;
 import br.antony.sea.model.Setor;
@@ -22,7 +23,7 @@ public class SetorController {
     private SetorService service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@Valid @RequestBody SetorDTO dto){
+    public ResponseEntity<Void> create(@Valid @RequestBody NovoSetorDTO dto){
         Setor setor = service.create(SetorMapper.toEntity(dto));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(setor.getId()).toUri();
@@ -30,19 +31,19 @@ public class SetorController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Setor> findById(@PathVariable Integer id){
-        Setor setor = service.findById(id);
+    public ResponseEntity<SetorDTO> findById(@PathVariable Integer id){
+        SetorDTO setor = SetorMapper.toDTO(service.findById(id));
         return ResponseEntity.ok().body(setor);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SetorDTO>> findAll(){
-        List<SetorDTO> setorList = SetorMapper.toDTOList(service.findAll());
+    public ResponseEntity<List<NovoSetorDTO>> findAll(){
+        List<NovoSetorDTO> setorList = SetorMapper.toDTOList(service.findAll());
         return ResponseEntity.ok().body(setorList);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody SetorDTO dto){
+    public ResponseEntity<Void> update(@Valid @RequestBody NovoSetorDTO dto){
         Setor setor = service.update(SetorMapper.toEntity(dto));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(setor.getId()).toUri();

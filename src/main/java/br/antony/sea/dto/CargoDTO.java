@@ -2,17 +2,17 @@ package br.antony.sea.dto;
 
 import java.util.List;
 
-public class SetorDTO {
-
+public class CargoDTO {
     private Integer id;
     private String nome;
-    private List<CargoDTO> cargos;
+    private Integer idSetor;
 
-    public SetorDTO(){}
+    public CargoDTO(){}
 
-    public SetorDTO(Integer id, String nome) {
+    public CargoDTO(Integer id, String nome, Integer idSetor) {
         this.id = id;
         this.nome = nome;
+        this.idSetor = idSetor;
     }
 
     public Integer getId() {
@@ -31,11 +31,11 @@ public class SetorDTO {
         this.nome = nome;
     }
 
-    public List<CargoDTO> getCargos() {
-        return cargos;
+    public Integer getIdSetor() {
+        return idSetor;
     }
 
-    public void setCargos(List<CargoDTO> cargos) {
-        this.cargos = cargos;
+    public void setIdSetor(Integer idSetor) {
+        this.idSetor = idSetor;
     }
 }
