@@ -6,6 +6,8 @@ import br.antony.sea.dto.SetorDTO;
 import br.antony.sea.mapper.SetorMapper;
 import br.antony.sea.model.Setor;
 import br.antony.sea.service.SetorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +16,21 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/setor")
+@Api(value = "Endpoints Setor")
+@CrossOrigin(origins = "*")
 public class SetorController {
 
     @Autowired
     private SetorService service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@Valid @RequestBody NovoSetorDTO dto){
-        Setor setor = service.create(SetorMapper.toEntity(dto));
+    @ApiOperation(value = "Cadastrar Setor")
+    public ResponseEntity<Void> create(@Valid @RequestBody NovoSetorDTO setorDTO){
+        Setor setor = service.create(SetorMapper.toEntity(setorDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(setor.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -37,8 +43,8 @@ public class SetorController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<NovoSetorDTO>> findAll(){
-        List<NovoSetorDTO> setorList = SetorMapper.toDTOList(service.findAll());
+    public ResponseEntity<List<SetorDTO>> findAll(){
+        List<SetorDTO> setorList = SetorMapper.toDTOList(service.findAll());
         return ResponseEntity.ok().body(setorList);
     }
 

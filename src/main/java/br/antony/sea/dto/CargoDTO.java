@@ -5,14 +5,12 @@ import java.util.List;
 public class CargoDTO {
     private Integer id;
     private String nome;
-    private Integer idSetor;
 
     public CargoDTO(){}
 
-    public CargoDTO(Integer id, String nome, Integer idSetor) {
+    public CargoDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.idSetor = idSetor;
     }
 
     public Integer getId() {
@@ -31,11 +29,4 @@ public class CargoDTO {
         this.nome = nome;
     }
 
-    public Integer getIdSetor() {
-        return idSetor;
-    }
-
-    public void setIdSetor(Integer idSetor) {
-        this.idSetor = idSetor;
-    }
 }

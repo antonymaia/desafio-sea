@@ -21,8 +21,8 @@ public class TrabalhadorController {
     private TrabalhadorService service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@Valid @RequestBody NovoTrabalhoDTO dto){
-        Trabalhador trabalhador = service.create(TrabalhadorMapper.newDtoToEntity(dto));
+    public ResponseEntity<Void> create(@Valid @RequestBody NovoTrabalhoDTO novoTrabalhoDTO){
+        Trabalhador trabalhador = service.create(TrabalhadorMapper.newDtoToEntity(novoTrabalhoDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(trabalhador.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -41,8 +41,8 @@ public class TrabalhadorController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody NovoTrabalhoDTO dto){
-        Trabalhador trabalhador = service.update(TrabalhadorMapper.newDtoToEntity(dto));
+    public ResponseEntity<Void> update(@Valid @RequestBody NovoTrabalhoDTO novoTrabalhoDTO){
+        Trabalhador trabalhador = service.update(TrabalhadorMapper.newDtoToEntity(novoTrabalhoDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(trabalhador.getId()).toUri();
         return ResponseEntity.created(uri).build();

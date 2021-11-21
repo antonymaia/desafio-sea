@@ -17,14 +17,14 @@ public class CargoMapper {
     }
 
     public static CargoDTO toDTO(Cargo entity) {
-        CargoDTO dto = new CargoDTO(entity.getId(), entity.getNome(), entity.getSetor().getId());
+        CargoDTO dto = new CargoDTO(entity.getId(), entity.getNome());
         return dto;
     }
 
     public static List<CargoDTO> toDTOList(List<Cargo> entityList) {
         List<CargoDTO> dtoList = new ArrayList<>();
         entityList.forEach(entity->{
-            CargoDTO dto = new CargoDTO(entity.getId(), entity.getNome(), entity.getSetor().getId());
+            CargoDTO dto = new CargoDTO(entity.getId(), entity.getNome());
             dtoList.add(dto);
         });
         return dtoList;
