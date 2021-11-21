@@ -24,7 +24,7 @@ public class Cargo {
 
     public Cargo(Integer id, String nome, Setor setor) {
         this.id = id;
-        this.nome = nome.toUpperCase();
+        this.nome = nome != null ? nome.toUpperCase() : null;
         this.setor = setor;
     }
 

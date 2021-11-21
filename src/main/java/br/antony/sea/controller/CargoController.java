@@ -30,14 +30,14 @@ public class CargoController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<CargoDTO> findById(@PathVariable Integer id){
-        CargoDTO cargoDTO = CargoMapper.toDTO(service.findById(id));
-        return ResponseEntity.ok().body(cargoDTO);
+    public ResponseEntity<Cargo> findById(@PathVariable Integer id){
+        Cargo cargo = service.findById(id);
+        return ResponseEntity.ok().body(cargo);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<CargoDTO>> findAll(){
-        List<CargoDTO> cargoDTOList = CargoMapper.toDTOList(service.findAll());
+    public ResponseEntity<List<Cargo>> findAll(){
+        List<Cargo> cargoDTOList = service.findAll();
         return ResponseEntity.ok().body(cargoDTOList);
     }
 

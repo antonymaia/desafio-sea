@@ -1,5 +1,7 @@
 package br.antony.sea.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Setor {
     private String nome;
 
     @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Cargo> cargos;
 
     public Setor(){}
