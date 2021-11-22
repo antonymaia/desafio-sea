@@ -26,13 +26,15 @@ public class SetorMapper {
     }
 
     public static SetorDTO toDTO(Setor entity) {
-        List<CargoDTO> cargoDTOList = new ArrayList<>();
-        entity.getCargos().forEach(cargoEntity->{
-            CargoDTO cargoDTO = new CargoDTO(cargoEntity.getId(), cargoEntity.getNome());
-            cargoDTOList.add(cargoDTO);
-        });
         SetorDTO dto = new SetorDTO(entity.getId(), entity.getNome());
-        dto.setCargos(cargoDTOList);
+        if(entity.getCargos() != null){
+            List<CargoDTO> cargoDTOList = new ArrayList<>();
+            entity.getCargos().forEach(cargoEntity->{
+                CargoDTO cargoDTO = new CargoDTO(cargoEntity.getId(), cargoEntity.getNome());
+                cargoDTOList.add(cargoDTO);
+            });
+            dto.setCargos(cargoDTOList);
+        }
         return dto;
     }
 }

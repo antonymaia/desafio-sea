@@ -6,6 +6,7 @@ import br.antony.sea.dto.SetorDTO;
 import br.antony.sea.mapper.SetorMapper;
 import br.antony.sea.model.Setor;
 import br.antony.sea.service.SetorService;
+import br.antony.sea.service.exception.ObjectNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,12 @@ public class SetorController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<SetorDTO> findById(@PathVariable Integer id){
-        SetorDTO setor = SetorMapper.toDTO(service.findById(id));
-        return ResponseEntity.ok().body(setor);
+        Setor setorEntity = service.findById(id);
+        if(setorEntity == null){
+            return ResponseEntity.notFound().build();
+        }
+        SetorDTO setorDTO = SetorMapper.toDTO(setorEntity);
+        return ResponseEntity.ok().body(setorDTO);
     }
 
     @RequestMapping(method = RequestMethod.GET)

@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Setor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nome;
 
     @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
@@ -18,9 +19,17 @@ public class Setor {
 
     public Setor(){}
 
-    public Setor(int id, String nome) {
+    public Setor(Integer id, String nome) {
         this.id = id;
         this.nome = nome!=null ? nome.toUpperCase() : null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Setor setor = (Setor) o;
+        return id == setor.id;
     }
 
     public Integer getId() {
