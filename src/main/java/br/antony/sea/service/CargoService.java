@@ -48,8 +48,14 @@ public class CargoService {
         return repository.save(cargo);
     }
 
+    public void deleteCargoTrabalhador(Integer id){
+        findById(id);
+        repository.deleteCargoTrabalhador(id);
+    }
+
     public void delete(Integer id) {
         findById(id);
+        deleteCargoTrabalhador(id);
         repository.deleteById(id);
     }
 }

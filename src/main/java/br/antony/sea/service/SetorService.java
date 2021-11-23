@@ -1,6 +1,7 @@
 package br.antony.sea.service;
 
 import br.antony.sea.model.Setor;
+import br.antony.sea.repository.CargoRepository;
 import br.antony.sea.repository.SetorRepository;
 import br.antony.sea.service.exception.DuplicidadeDadosException;
 import br.antony.sea.service.exception.NullDataException;
@@ -17,6 +18,8 @@ public class SetorService {
 
     @Autowired
     private SetorRepository repository;
+    @Autowired
+    private CargoService cargoService;
 
     public Setor create(Setor setor) {
         if(findByNome(setor.getNome().toUpperCase()) != null){
@@ -41,18 +44,20 @@ public class SetorService {
     }
 
     public Setor update(Setor setor) {
-        if(setor.getId() == null){
-            throw new NullDataException("Informe o id do setor");
+        Setor setorCadastrado = findById(setor.getId());
+        if(!setorCadastrado.getNome().equalsIgnoreCase(setor.getNome())){
+            if(findByNome(setor.getNome()) != null){
+                throw new DuplicidadeDadosException("Setor "+setor.getNome()+" já cadastrado");
+            }
         }
-        if(findByNome(setor.getNome().toUpperCase()) != null){
-            throw new DuplicidadeDadosException("Setor "+setor.getNome()+" já cadastrado");
-        }
-        findById(setor.getId());
         return repository.save(setor);
     }
 
     public void delete(Integer id) {
-        findById(id);
+        Setor setor = findById(id);
+        setor.getCargos().forEach(cargo -> {
+            cargoService.deleteCargoTrabalhador(cargo.getId());
+        });
         repository.deleteById(id);
     }
 }

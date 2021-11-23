@@ -38,6 +38,7 @@ public class SetorController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "Busca Setor pelo Id")
     public ResponseEntity<SetorDTO> findById(@PathVariable Integer id){
         Setor setorEntity = service.findById(id);
         if(setorEntity == null){
@@ -48,20 +49,23 @@ public class SetorController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @ApiOperation(value = "Busca todos os Setores")
     public ResponseEntity<List<SetorDTO>> findAll(){
         List<SetorDTO> setorList = SetorMapper.toDTOList(service.findAll());
         return ResponseEntity.ok().body(setorList);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody NovoSetorDTO dto){
-        Setor setor = service.update(SetorMapper.toEntity(dto));
+    @ApiOperation(value = "Atualiza o Setor")
+    public ResponseEntity<Void> update(@Valid @RequestBody NovoSetorDTO novoSetorDTO){
+        Setor setor = service.update(SetorMapper.toEntity(novoSetorDTO));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(setor.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Deleta um Setor")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.ok().build();

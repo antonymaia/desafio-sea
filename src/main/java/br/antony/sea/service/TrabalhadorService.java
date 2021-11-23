@@ -15,6 +15,8 @@ public class TrabalhadorService {
 
     @Autowired
     private TrabalhadorRepository repository;
+    @Autowired
+    private CargoService cargoService;
 
     public Trabalhador create(Trabalhador trabalhador) {
         if(repository.findByCpf(trabalhador.getCpf()).isPresent()){
@@ -39,6 +41,7 @@ public class TrabalhadorService {
                 throw new DuplicidadeDadosException("CPF já cadastrado");
             }
         }
+        cargoService.findById(trabalhadorAtualizado.getCargo().getId());
         return repository.save(trabalhadorAtualizado);
     }
 
