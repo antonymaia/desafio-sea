@@ -1,6 +1,7 @@
 package br.antony.sea.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Setor {
     private Integer id;
     private String nome;
 
-    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "setor", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Cargo> cargos;
 

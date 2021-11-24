@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Cargo {
@@ -26,6 +27,19 @@ public class Cargo {
         this.id = id;
         this.nome = nome != null ? nome.toUpperCase() : null;
         this.setor = setor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cargo cargo = (Cargo) o;
+        return Objects.equals(id, cargo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Integer getId() {

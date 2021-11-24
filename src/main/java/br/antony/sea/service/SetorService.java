@@ -55,9 +55,11 @@ public class SetorService {
 
     public void delete(Integer id) {
         Setor setor = findById(id);
-        setor.getCargos().forEach(cargo -> {
-            cargoService.deleteCargoTrabalhador(cargo.getId());
-        });
+        if(setor.getCargos() != null){
+            setor.getCargos().forEach(cargo -> {
+                cargoService.deleteCargoTrabalhador(cargo.getId());
+            });
+        }
         repository.deleteById(id);
     }
 }

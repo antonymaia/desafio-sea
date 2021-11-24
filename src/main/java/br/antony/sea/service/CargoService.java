@@ -3,6 +3,7 @@ package br.antony.sea.service;
 import br.antony.sea.model.Cargo;
 import br.antony.sea.repository.CargoRepository;
 import br.antony.sea.service.exception.DuplicidadeDadosException;
+import br.antony.sea.service.exception.NullDataException;
 import br.antony.sea.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class CargoService {
     }
 
     public Cargo findById(Integer id) {
+        if(id == null || id == 0){
+            throw new NullDataException("Id do Cargo invalido, Id: "+ id);
+        }
         Optional<Cargo> cargo = repository.findById(id);
         return cargo.orElseThrow(()-> new ObjectNotFoundException("Cargo não encontrado id: "+id));
     }
@@ -54,8 +58,8 @@ public class CargoService {
     }
 
     public void delete(Integer id) {
-        findById(id);
+        Cargo cargo = findById(id);
         deleteCargoTrabalhador(id);
-        repository.deleteById(id);
+        repository.delete(cargo);
     }
 }

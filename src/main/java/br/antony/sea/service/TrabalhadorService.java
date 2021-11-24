@@ -3,6 +3,7 @@ package br.antony.sea.service;
 import br.antony.sea.model.Trabalhador;
 import br.antony.sea.repository.TrabalhadorRepository;
 import br.antony.sea.service.exception.DuplicidadeDadosException;
+import br.antony.sea.service.exception.NullDataException;
 import br.antony.sea.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ public class TrabalhadorService {
     private CargoService cargoService;
 
     public Trabalhador create(Trabalhador trabalhador) {
+        trabalhador.setAtivo(true);
+        if(trabalhador.getCargo() == null){
+            throw new NullDataException("Informe o Cargo do Trabalhador");
+        }
+        cargoService.findById(trabalhador.getCargo().getId());
         if(repository.findByCpf(trabalhador.getCpf()).isPresent()){
             throw new DuplicidadeDadosException("CPF já cadastrado");
         }

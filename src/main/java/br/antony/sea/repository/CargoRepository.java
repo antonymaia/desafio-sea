@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Integer> {
+
     Cargo findByNome(String nome);
 
     @Modifying

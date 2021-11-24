@@ -21,21 +21,21 @@ public class SetorServiceTest {
     private SetorRepository setorRepository;
 
     @Test
-    public void createTest(){
+    public void test01Create(){
         Setor setor = setorService.create(new Setor(null, "COMERCIAL"));
         assertNotNull(setor.getId());
     }
 
     @Test
-    public void findByIdTest(){
+    public void test02FindById(){
         Setor setorEsperado = setorService.create(new Setor(null, "TI"));
-        Setor setorAtual = setorService.findById(1);
+        Setor setorAtual = setorService.findById(setorEsperado.getId());
         assertEquals(setorEsperado, setorAtual);
         assertEquals(setorEsperado.getNome(), setorAtual.getNome());
     }
 
     @Test
-    public void deleteTest(){
+    public void test03Delete(){
         setorService.delete(1);
         Optional<Setor> optionalSetor = setorRepository.findById(1);
         assertFalse(optionalSetor.isPresent());
